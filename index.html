@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Recovery</title>
+
+<style>
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: black;
+color: white;
+overflow-x: hidden;
+}
+
+/* animated background */
+canvas {
+position: fixed;
+top: 0;
+left: 0;
+z-index: -1;
+}
+
+/* main container */
+.container {
+text-align: center;
+padding: 100px 20px;
+}
+
+/* glowing title */
+h1 {
+font-size: 3em;
+color: #00ffcc;
+text-shadow: 0 0 20px #00ffcc;
+animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+from { text-shadow: 0 0 10px #00ffcc; }
+to { text-shadow: 0 0 30px #00ffcc; }
+}
+
+/* sections */
+.section {
+margin-top: 50px;
+opacity: 0;
+transform: translateY(30px);
+animation: fadeUp 1s forwards;
+}
+
+.section:nth-child(2) { animation-delay: 0.3s; }
+.section:nth-child(3) { animation-delay: 0.6s; }
+.section:nth-child(4) { animation-delay: 0.9s; }
+
+@keyframes fadeUp {
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+/* buttons */
+.button {
+display: inline-block;
+margin-top: 20px;
+padding: 12px 25px;
+border: 2px solid #00ffcc;
+color: #00ffcc;
+text-decoration: none;
+transition: 0.3s;
+}
+
+.button:hover {
+background: #00ffcc;
+color: black;
+box-shadow: 0 0 20px #00ffcc;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="container">
+<h1>DATA RECOVERY</h1>
+<p>Recover lost files from USB, SD cards, and hard drives</p>
+
+<div class="section">
+<h2>Services</h2>
+<p>USB / SD Card Recovery</p>
+<p>Hard Drive Recovery</p>
+<p>Corrupted File Recovery</p>
+</div>
+
+<div class="section">
+<h2>Pricing</h2>
+<p>Free check — Pay only if successful</p>
+</div>
+
+<div class="section">
+<h2>Contact</h2>
+<p>Email: your@email.com</p>
+<a href="mailto:your@email.com" class="button">Contact Me</a>
+</div>
+</div>
+
+<script>
+// matrix-style background
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+let letters = "01";
+letters = letters.split("");
+
+let fontSize = 14;
+let columns = canvas.width / fontSize;
+
+let drops = [];
+for (let x = 0; x < columns; x++)
+drops[x] = 1;
+
+function draw() {
+ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+ctx.fillStyle = "#0f0";
+ctx.font = fontSize + "px monospace";
+
+for (let i = 0; i < drops.length; i++) {
+let text = letters[Math.floor(Math.random() * letters.length)];
+ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+drops[i] = 0;
+
+drops[i]++;
+}
+}
+
+setInterval(draw, 33);
+</script>
+
+</body>
+</html>
